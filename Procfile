@@ -1,0 +1,1 @@
+web: gunicorn --pythonpath Image-To-Lego-App imagelego_server:app
