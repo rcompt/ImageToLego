@@ -121,8 +121,15 @@ class ImageToLego:
                 self.instructions.append(self.reference_colors[lego_color])
                 if build_image:
                     self.im.putpixel((idx_x, idx_y), lego_color)
-                
-        
+    
+    def save_instructions(self, output_file = "instructions.txt"):
+        with open("instructions.txt","wt") as fp:
+            lines = []
+            for i in range(self.lego_image_size[0]):
+                line = self.instructions[(self.lego_image_size[0]*i):(self.lego_image_size[0]*(i+1))]
+                lines.append(line)
+            for line in lines:
+                fp.write(" , ".join(line) + "\n")
         
     def build_plot(self, output_file = "LegoImage.png"):
 
