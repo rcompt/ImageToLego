@@ -18,8 +18,9 @@ import os
 class ImageToLego:
     
     def __init__(self, image_path):
-        self.image = Image.open(image_path)
         self.lego_image_size = (144, 144)
+        self.image = Image.open(image_path)
+        
 
         self.reference_colors = {
             (204, 170, 70) : "Yellow",
@@ -28,7 +29,8 @@ class ImageToLego:
             (20, 38, 62) : "Dark Blue",
             (176, 33, 150) : "Pink",
             (79, 39, 27): "Brown",
-            (106, 15, 22) : "Red"
+            (106, 15, 22) : "Red",
+            (255, 255, 255) : "White"
             }
         
         self.pyplot_colors = {
@@ -38,15 +40,16 @@ class ImageToLego:
             (20, 38, 62) : "Dark Blue",
             (176, 33, 150) : "Pink",
             (79, 39, 27): "Brown",
-            (106, 15, 22) : "Red"
+            (106, 15, 22) : "Red",
+            (255, 255, 255) : "White"
             }
 
 
-    @property()
+    @property
     def image(self, image):
         self._image = image
         
-    @image.setter()
+    @image.setter
     def image(self, image):
         self._image = image
         self.i_width = self._image.size[0]
@@ -105,7 +108,7 @@ class ImageToLego:
         
         for idx_x, x in enumerate(np.arange(self.i_width_start+self.step_size, self.i_width_end + self.step_size, self.step_size)):
             for idx_y, y in enumerate(np.arange(self.i_height_start+self.step_size, self.i_height_end + self.step_size, self.step_size)):
-                colors = [self.image.getpixel((int(x2),int(y2))) for x2 in range(int(x-self.step_size), int(x)) for y2 in range(int(y-self.step_size), int(y))]
+                colors = [self._image.getpixel((int(x2),int(y2))) for x2 in range(int(x-self.step_size), int(x)) for y2 in range(int(y-self.step_size), int(y))]
                 red = np.mean([color[0] for color in colors])
                 green = np.mean([color[1] for color in colors])
                 blue = np.mean([color[2] for color in colors])
@@ -140,7 +143,7 @@ class ImageToLego:
                 color[1] = color[1] / 255.0
                 color[2] = color[2] / 255.0
                 
-                circ = Circle((xx,self.lego_image_size[1] - yy),0.15, color = tuple(color))
+                circ = Circle((xx,self.lego_image_size[1] - yy),radius=0.25, color = tuple(color))
                 ax.add_patch(circ)
                 
         ax.set_xlim(0,144)

@@ -13,24 +13,6 @@ from src.imagelego_utils import ImageToLego
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 
-
-_question_key = [
-    f"clue_{i+1}_{j+1}" for i in range(10) for j in range(5)
-]
-
-""" _question_key = list(zip(_question_key, [
-    f"answer_{i+1}_{j+1}" for i in range(10) for j in range(5)
-])) """
-
-_question_key.extend([
-    "clue_f_j"
-   # "answer_f_j"
-])
-
-_categories = [
-    f"category_{i+1}" for i in range(10)
-]
-
 @app.route("/")
 def home():
     return render_template("home.html")
